@@ -1,0 +1,12 @@
+services:
+  framedrop:
+    build: .
+    image: framedrop:latest
+    container_name: framedrop
+    env_file: .env
+    ports:
+      - "${FRAMEDROP_PORT:-8000}:8000"
+    volumes:
+      # :Z relabels for SELinux hosts (Fedora etc.); harmless elsewhere.
+      - ./data:/data:Z
+    restart: unless-stopped
